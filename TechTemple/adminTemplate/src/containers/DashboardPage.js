@@ -19,7 +19,8 @@ import {
   SUBSCRIBE_TO_PRINTER_DATA_LINE,
   SUBSCRIBE_TO_PRINTER_DATA_BAR,
   SUBSCRIBE_TO_PRINTER_DATA_PIE,
-  SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY
+  SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY,
+  SUBSCRIBE_TO_PRINTER_DATA_PRINT_CARD
 } from '../apollo/queries';
 
 
@@ -34,6 +35,7 @@ class DashboardPage extends Component {
     this.props.subscribeToBarChartChange();
     this.props.subscribeToActivityChange();
     this.props.subscribeToPieChartChange();
+    this.props.subscribeToPrintCardChange();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,6 +54,7 @@ class DashboardPage extends Component {
       getBarDataSet,
       getActivityDataSet,
       getPieDataSet,
+      getPrintCardData
       // getCountDataSet
     } = PrinterData;
     console.log('--render--');
@@ -73,7 +76,7 @@ class DashboardPage extends Component {
               <InfoBox Icon={ShoppingCart}
                 color={pink600}
                 title="Paper Consumed"
-                value="1500k"
+                value={getPrintCardData.consumed}
               />
             </div>
 
@@ -82,7 +85,7 @@ class DashboardPage extends Component {
               <InfoBox Icon={ThumbUp}
                 color={cyan600}
                 title="Paper Left"
-                value="4231k"
+                value={getPrintCardData.left}
               />
             </div>
 
@@ -321,6 +324,24 @@ export default compose(
 
               return Object.assign({}, prev, {
                 getPieDataSet: previousValue
+              });
+            }
+          });
+        },
+        subscribeToPrintCardChange: () => {
+          return props.PrinterData.subscribeToMore({
+            document: SUBSCRIBE_TO_PRINTER_DATA_PRINT_CARD,
+            name: "subscribeToPrintCardChange",
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev;
+              }
+
+              const newDocumentState =
+                subscriptionData.data.printCardDataUpdated;
+
+              return Object.assign({}, prev, {
+                getPrintCardData: newDocumentState
               });
             }
           });
