@@ -55,6 +55,7 @@ class DashboardPage extends Component {
       let existingActivityData = getActivityDataSet.slice(0);
 
       existingActivityData.reverse();
+      existingActivityData = existingActivityData.slice(0, 5);
 
       return (
         <div>

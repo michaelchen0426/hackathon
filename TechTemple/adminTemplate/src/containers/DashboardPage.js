@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { cyan600, pink600, purple600, orange600 } from 'material-ui/styles/colors';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import Face from 'material-ui/svg-icons/action/face';
-import ThumbUp from 'material-ui/svg-icons/action/thumb-up';
-import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
+import ThumbUp from 'material-ui/svg-icons/communication/clear-all';
+import ShoppingCart from 'material-ui/svg-icons/Av/equalizer';
 import InfoBox from '../components/dashboard/InfoBox';
 import NewOrders from '../components/dashboard/NewOrders';
 import MonthlySales from '../components/dashboard/MonthlySales';
@@ -61,6 +61,7 @@ class DashboardPage extends Component {
       let existingActivityData = getActivityDataSet.slice(0);
 
       existingActivityData.reverse();
+      existingActivityData = existingActivityData.slice(0, 5);
 
       return (
         <div>
@@ -68,38 +69,38 @@ class DashboardPage extends Component {
 
           <div className="row">
 
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-b-15 ">
               <InfoBox Icon={ShoppingCart}
                 color={pink600}
-                title="Total Profit"
+                title="Paper Consumed"
                 value="1500k"
               />
             </div>
 
 
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-b-15 ">
               <InfoBox Icon={ThumbUp}
                 color={cyan600}
-                title="Likes"
-                value="4231"
+                title="Paper Left"
+                value="4231k"
               />
             </div>
 
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
               <InfoBox Icon={Assessment}
                 color={purple600}
                 title="Sales"
                 value="460"
               />
-            </div>
+            </div> */}
 
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
               <InfoBox Icon={Face}
                 color={orange600}
                 title="New Members"
                 value="248"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="row">
@@ -120,9 +121,9 @@ class DashboardPage extends Component {
             {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <BrowserUsage data={Data.dashBoardPage.browserUsage} />
             </div> */}
-            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+            {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <BrowserUsage data={getPieDataSet} />
-            </div>
+            </div> */}
           </div>
           {/* <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
@@ -260,6 +261,8 @@ export default compose(
             document: SUBSCRIBE_TO_PRINTER_DATA_BAR,
             name: "subscribeBarChartChange",
             updateQuery: (prev, { subscriptionData }) => {
+              console.log('--subscribeToBarChartChange--');
+              console.log(subscriptionData);
               if (!subscriptionData.data) {
                 return prev;
               }
@@ -282,6 +285,8 @@ export default compose(
             document: SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY,
             name: "subscribeActivityChange",
             updateQuery: (prev, { subscriptionData }) => {
+              console.log('--subscribeToActivityChange--');
+              console.log(subscriptionData);
               if (!subscriptionData.data) {
                 return prev;
               }
@@ -289,7 +294,8 @@ export default compose(
               const newDocumentState =
                 subscriptionData.data.activityDataSetUpdated;
               let previousValue = prev.getActivityDataSet.slice(0);
-
+              console.log('---previousValue--')
+              console.log(previousValue)
               previousValue.push(newDocumentState);
 
               return Object.assign({}, prev, {
