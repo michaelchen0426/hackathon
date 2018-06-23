@@ -11,20 +11,20 @@ import Dashboard from './containers/DashboardPage';
 class AppIndex extends Component {
   render() {
     return (
-      <div>
-      <Router  history={browserHistory}>
-        <Route>
-          <Route path="login" component={LoginPage} />
-          <Route path="/" component={App}>
-            <IndexRoute component={Dashboard} />
-            <Route path="dashboard" component={Dashboard} />
-            {/* <Route path="roomDashboard" component={RoomDashboard}/> */}
-            <Route path="form" component={FormPage} />
-            <Route path="table" component={TablePage} />
-            <Route path="*" component={NotFoundPage} />
+      <div style={{flex: 1}}>
+        <Router history={browserHistory}>
+          <Route>
+            <Route path="login" component={LoginPage} />
+            <Route path="/" component={App}>
+              <IndexRoute component={Dashboard} />
+              <Route path="dashboard" component={Dashboard} />
+              {/* <Route path="roomDashboard" component={RoomDashboard}/> */}
+              <Route path="form" component={FormPage} />
+              <Route path="table" component={TablePage} />
+              <Route path="*" component={NotFoundPage} />
+            </Route>
           </Route>
-        </Route>
-      </Router>
+        </Router>
       </div>
     );
   }

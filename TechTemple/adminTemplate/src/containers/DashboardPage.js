@@ -121,7 +121,15 @@ class DashboardPage extends Component {
     }
 
     return (
-      <CircularProgress size={60} thickness={7} />
+      <div style={{
+        height: 'calc(100vh - 150px)',
+        width: 'calc(100vw - 30px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <CircularProgress size={60} thickness={7} />
+      </div>
     );
 
     // return (
@@ -198,10 +206,10 @@ export default compose(
     name: 'PrinterData',
     options: () => {
       return {
-          fetchPolicy: 'network-only',
-          notifyOnNetworkStatusChange: true
+        fetchPolicy: 'network-only',
+        notifyOnNetworkStatusChange: true
       };
-  },
+    },
     // props: (props) => {
     //   return {
     //     ...props,
