@@ -31,7 +31,7 @@ class DashboardPage extends Component {
         color: '#CC0000'
       },
       {
-        label: 'Occupy',
+        label: 'Occupancy',
         value: 70,
         color: '#8f8f8f'
       }
@@ -44,7 +44,7 @@ class DashboardPage extends Component {
         color: '#CC0000'
       },
       {
-        label: 'Occupy',
+        label: 'Occupancy',
         value: 80,
         color: '#8f8f8f'
       }
@@ -57,7 +57,7 @@ class DashboardPage extends Component {
         color: '#CC0000'
       },
       {
-        label: 'Occupy',
+        label: 'Occupancy',
         value: 40,
         color: '#8f8f8f'
       }
