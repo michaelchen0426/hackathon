@@ -11,7 +11,7 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 const data = {
   menus: [
     { text: 'Printer DashBoard', icon: <Assessment/>, link: '/dashboard' },
-    { text: 'Room DashBoard', icon: <Assessment/>, link: '/roomDashboard' },
+    // { text: 'Room DashBoard', icon: <Assessment/>, link: '/roomDashboard' },
     // { text: 'Form Page', icon: <Web/>, link: '/form' },
     // { text: 'Table Page', icon: <GridOn/>, link: '/table' },
     // { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }
