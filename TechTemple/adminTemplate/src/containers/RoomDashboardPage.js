@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { cyan600, pink600, purple600, orange600 } from 'material-ui/styles/colors';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import Face from 'material-ui/svg-icons/action/face';
@@ -12,38 +12,64 @@ import RecentlyProducts from '../components/roomDashboard/RecentlyProducts';
 import globalStyles from '../styles';
 import Data from '../data';
 import { graphql, compose } from 'react-apollo';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import {
   GET_ROOM_DATA,
   SUBSCRIBE_TO_ROOM_DATA
 } from '../apollo/queries';
 
-const DashboardPage = () => {
+class DashboardPage extends Component {
+  constructor() {
+    super();
+    console.log('--constructor-')
+  }
 
-  return (
-    <div>
-      <h3 style={globalStyles.navigation}>Rooms Dashboard</h3>
+  componentDidMount() {
+    this.props.subscribeToLineChartChange();
+  }
 
-      <div className="row">
+  render() {
+    const {
+      RoomData
+    } = this.props;
 
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={ShoppingCart}
-            color={pink600}
-            title="Total Profit"
-            value="1500k"
-          />
-        </div>
+    const {
+      networkStatus,
+      getLineDataSet,
+      getBarDataSet,
+      // getActivityDataSet,
+      // getPieDataSet,
+      // getCountDataSet
+    } = RoomData;
+    console.log('--render--');
+    console.log(this.props);
+
+    if (networkStatus === 7) {
+      return (
+        <div>
+          <h3 style={globalStyles.navigation}>Rooms Dashboard</h3>
+
+          <div className="row">
+
+            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+              <InfoBox Icon={ShoppingCart}
+                color={pink600}
+                title="Total Profit"
+                value="1500k"
+              />
+            </div>
 
 
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={ThumbUp}
-            color={cyan600}
-            title="Likes"
-            value="4231"
-          />
-        </div>
+            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+              <InfoBox Icon={ThumbUp}
+                color={cyan600}
+                title="Likes"
+                value="4231"
+              />
+            </div>
 
-        {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
           <InfoBox Icon={Assessment}
                    color={purple600}
                    title="Sales"
@@ -58,30 +84,44 @@ const DashboardPage = () => {
                    value="248"
           />
         </div> */}
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
+              <NewOrders data={getLineDataSet} />
+            </div>
+
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
+              <MonthlySales data={getBarDataSet} />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+              <RecentlyProducts data={Data.roomDashBoardPage.recentProducts} />
+            </div>
+
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+              <BrowserUsage data={Data.roomDashBoardPage.browserUsage} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{
+        height: 'calc(100vh - 150px)',
+        width: 'calc(100vw - 30px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <CircularProgress size={60} thickness={7} />
       </div>
-
-      <div className="row">
-        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
-          <NewOrders data={Data.roomDashBoardPage.newOrders} />
-        </div>
-
-        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
-          <MonthlySales data={Data.roomDashBoardPage.monthlySales} />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          <RecentlyProducts data={Data.roomDashBoardPage.recentProducts} />
-        </div>
-
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          <BrowserUsage data={Data.roomDashBoardPage.browserUsage} />
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default compose(
   graphql(GET_ROOM_DATA, {

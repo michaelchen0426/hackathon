@@ -1,31 +1,35 @@
 import gql from 'graphql-tag';
 
 export const GET_PRINTER_DATA = gql`
-   query {
-        getLineDataSet(name: "printer") {
-          v,
-          date
-        }
-
-        getBarDataSet(name: "printer") {
-          uv,
-          name
-        }
-
-        getActivityDataSet(name: "printer") {
-          id,
-          text,
-          title,
-          type
-        }
+  query {
+    getLineDataSet(name: "printer") {
+      date
+      v
     }
+
+    getBarDataSet(name: "printer") {
+      name
+      uv
+    }
+
+    getActivityDataSet(name: "printer") {
+      id
+      title
+      text
+      type
+    }
+
+    getPieDataSet(name: "printer") {
+      label,
+      value,
+      color
+    }
+  }
 `;
 
 /*
 
-        getPieDataSet(name: "printer") {
 
-        }
 
         getCountDataSet(name: "printer") {
 

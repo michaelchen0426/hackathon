@@ -95,7 +95,7 @@ const data = {
       {date: "06-17", v: 1300}
     ],
     browserUsage: [
-      {name: 'Room A', value: 200, color: cyan600, icon: <ExpandMore/>},
+      {name: 'Room A', value: 200, color: '#8f8f8f', icon: <ExpandMore/>},
       {name: 'Room B', value: 600, color: pink600, icon: <ChevronRight/>},
       {name: 'Room C', value: 100, color: purple600, icon: <ExpandLess/>}
     ]

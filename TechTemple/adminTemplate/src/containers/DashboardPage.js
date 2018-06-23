@@ -44,8 +44,8 @@ class DashboardPage extends Component {
       networkStatus,
       getLineDataSet,
       getBarDataSet,
-      // getActivityDataSet,
-      // getPieDataSet,
+      getActivityDataSet,
+      getPieDataSet,
       // getCountDataSet
     } = PrinterData;
     console.log('--render--');
@@ -103,16 +103,19 @@ class DashboardPage extends Component {
             </div>
           </div>
 
-          {/* <div className="row">
+          <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <RecentlyProducts data={getActivityDataSet} />
             </div>
 
+            {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+              <BrowserUsage data={Data.dashBoardPage.browserUsage} />
+            </div> */}
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <BrowserUsage data={getPieDataSet} />
             </div>
-          </div> */}
-          <div className="row">
+          </div>
+          {/* <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <RecentlyProducts data={Data.dashBoardPage.recentProducts} />
             </div>
@@ -120,7 +123,7 @@ class DashboardPage extends Component {
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
               <BrowserUsage data={Data.dashBoardPage.browserUsage} />
             </div>
-          </div>
+          </div> */}
         </div>
       );
     }
@@ -240,46 +243,40 @@ export default compose(
             }
           });
         },
-        // subscribeToBarChartChange: () => {
-        //   return props.PrinterData.subscribeToMore({
-        //     document: SUBSCRIBE_TO_PRINTER_DATA,
-        //     updateQuery: (prev, { subscriptionData }) => {
-        //       if (!subscriptionData.data) {
-        //         return prev;
-        //       }
+        subscribeToBarChartChange: () => {
+          return props.PrinterData.subscribeToMore({
+            document: SUBSCRIBE_TO_PRINTER_DATA,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev;
+              }
 
-        //       const newDocumentState =
-        //         subscriptionData.data.barDataSetUpdated;
+              const newDocumentState =
+                subscriptionData.data.barDataSetUpdated;
 
-        //       return Object.assign({}, prev, {
-        //         getBarDataSet: { ...newDocumentState }
-        //       });
-        //     }
-        //   });
-        // },
-        // subscribeToActivityChange: () => {
-        //   return props.PrinterData.subscribeToMore({
-        //     document: SUBSCRIBE_TO_PRINTER_DATA,
-        //     updateQuery: (prev, { subscriptionData }) => {
-        //       if (!subscriptionData.data) {
-        //         return prev;
-        //       }
+              return Object.assign({}, prev, {
+                getBarDataSet: { ...newDocumentState }
+              });
+            }
+          });
+        },
+        subscribeToActivityChange: () => {
+          return props.PrinterData.subscribeToMore({
+            document: SUBSCRIBE_TO_PRINTER_DATA,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev;
+              }
 
-        //       const newDocumentState =
-        //         subscriptionData.data.activityDataSetUpdated;
+              const newDocumentState =
+                subscriptionData.data.activityDataSetUpdated;
 
-        //       return Object.assign({}, prev, {
-        //         getActivityDataSet: { ...newDocumentState }
-        //       });
-        //     }
-        //   });
-        // },
-      };
-    }
-  })
-)(DashboardPage);
-
-/*
+              return Object.assign({}, prev, {
+                getActivityDataSet: { ...newDocumentState }
+              });
+            }
+          });
+        },
         subscribeToPieChartChange: () => {
           return props.PrinterData.subscribeToMore({
             document: SUBSCRIBE_TO_PRINTER_DATA,
@@ -297,6 +294,13 @@ export default compose(
             }
           });
         },
+      };
+    }
+  })
+)(DashboardPage);
+
+/*
+
         subscribeToCountChange: () => {
           return props.PrinterData.subscribeToMore({
             document: SUBSCRIBE_TO_PRINTER_DATA,

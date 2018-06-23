@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
-import {PieChart, Pie, Cell, ResponsiveContainer} from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import Avatar from 'material-ui/Avatar';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import GlobalStyles from '../../styles';
+import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 
 const BrowserUsage = (props) => {
 
@@ -26,7 +27,7 @@ const BrowserUsage = (props) => {
     <Paper style={styles.paper}>
       <span style={GlobalStyles.title}>Printer Usage</span>
 
-      <div style={GlobalStyles.clear}/>
+      <div style={GlobalStyles.clear} />
 
       <div className="row">
 
@@ -38,9 +39,10 @@ const BrowserUsage = (props) => {
                   innerRadius={80}
                   outerRadius={130}
                   data={props.data}
-                  fill="#8884d8">
+                  fill="#8884d8"
+                >
                   {
-                    props.data.map((item) => <Cell key={item.name} fill={item.color}/>)
+                    props.data.map((item) => <Cell key={item.label} fill={item.color} />)
                   }
                 </Pie>
               </PieChart>
@@ -54,12 +56,14 @@ const BrowserUsage = (props) => {
               <List>
                 {props.data.map((item) =>
                   <ListItem
-                    key={item.name}
+                    key={item.label}
                     leftAvatar={
-                      <Avatar icon={item.icon}
-                              backgroundColor={item.color}/>
-                    }>
-                    {item.name}
+                      <Avatar
+                        icon={<ExpandLess/>}
+                        backgroundColor={item.color} />
+                    }
+                  >
+                    {item.label}
                   </ListItem>
                 )}
               </List>
