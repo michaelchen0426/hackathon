@@ -105,64 +105,22 @@ export const SUBSCRIBE_TO_PRINTER_DATA_PRINT_CARD = gql`
 
 export const GET_ROOM_DATA = gql`
     {
-      getLineDataSet(name: "room") {
-        date
-        v
-      }
-
-      getBarDataSet(name: "room") {
-        name
-        uv
-      }
-
       getActivityDataSet(name: "room") {
         id
         title
         text
-      }
-
-      getPieDataSet(name: "room") {
-        label,
-        value,
-        color
+        interval
       }
     }
-`;
-
-export const SUBSCRIBE_TO_ROOM_DATA_LINE = gql`
-    subscription {
-        lineDataSetUpdatedRoom {
-          v,
-          date
-        }
-    }
-`;
-
-export const SUBSCRIBE_TO_ROOM_DATA_BAR = gql`
-  subscription {
-    barDataSetUpdatedoom {
-      name,
-      uv
-    }
-  }
 `;
 
 export const SUBSCRIBE_TO_ROOM_DATA_ACTIVITY = gql`
 subscription {
-  activityDataSetUpdatedoom {
+  activityDataSetUpdatedRoom {
     id
     title
     text
-  }
-}
-`;
-
-export const SUBSCRIBE_TO_ROOM_DATA_PIE = gql`
-subscription {
-  pieDataSetUpdatedoom {
-    label,
-    value,
-    color
+    interval
   }
 }
 `;

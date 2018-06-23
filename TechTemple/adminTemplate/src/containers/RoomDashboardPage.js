@@ -29,10 +29,10 @@ class DashboardPage extends Component {
   }
 
   componentDidMount() {
-    this.props.subscribeToLineChartChange();
-    this.props.subscribeToBarChartChange();
+    // this.props.subscribeToLineChartChange();
+    // this.props.subscribeToBarChartChange();
     this.props.subscribeToActivityChange();
-    this.props.subscribeToPieChartChange();
+    // this.props.subscribeToPieChartChange();
   }
 
   render() {
@@ -51,107 +51,112 @@ class DashboardPage extends Component {
     console.log('--render--');
     console.log(this.props);
 
-    const usageData = [
-      {
-        date: '6-12',
-        v: 5
-      },
-      {
-        date: '6-13',
-        v: 7
-      },
-      {
-        date: '6-14',
-        v: 4
-      },
-      {
-        date: '6-15',
-        v: 9
-      },
-      {
-        date: '6-16',
-        v: 4
-      },
-      {
-        date: '6-17',
-        v: 5
-      },
-      {
-        date: '6-18',
-        v: 5
-      },
-      {
-        date: '6-19',
-        v: 8
-      },
-    ];
-
-    const barData = [
-      {
-        name: '9am',
-        uv: 10
-      },
-      {
-        name: '10am',
-        uv: 15
-      },
-      {
-        name: '11am',
-        uv: 18
-      },
-      {
-        name: '12pm',
-        uv: 6
-      },
-      {
-        name: '13pm',
-        uv: 5
-      },
-      {
-        name: '14pm',
-        uv: 10
-      },
-      {
-        name: '15pm',
-        uv: 19
-      },
-      {
-        name: '16pm',
-        uv: 22
-      },
-      {
-        name: '17pm',
-        uv: 24
-      },
-      {
-        name: '18pm',
-        uv: 16
-      }
-    ];
-
-    const pieData = [
-      {
-        label: 'Air Conditioner',
-        value: 200,
-        color: '#000'
-      },
-      {
-        label: 'Phone',
-        value: 600,
-        color: '#8f8f8f'
-      },
-      {
-        label: 'Light',
-        value: 100,
-        color: '#CC0000'
-      }
-    ];
 
     if (networkStatus === 7) {
       let existingActivityData = getActivityDataSet.slice(0);
+      let lastRecord = existingActivityData[existingActivityData.length - 1];
+      const { interval } = lastRecord;
 
+      console.log('--interval--')
+      console.log(interval)
       existingActivityData.reverse();
       existingActivityData = existingActivityData.slice(0, 5);
+
+      const usageData = [
+        {
+          date: '6-12',
+          v: 5
+        },
+        {
+          date: '6-13',
+          v: 7
+        },
+        {
+          date: '6-14',
+          v: 4
+        },
+        {
+          date: '6-15',
+          v: 9
+        },
+        {
+          date: '6-16',
+          v: 4
+        },
+        {
+          date: '6-17',
+          v: 5
+        },
+        {
+          date: '6-18',
+          v: 5
+        },
+        {
+          date: '6-19',
+          v: interval ? 10 : 8
+        },
+      ];
+
+      const barData = [
+        {
+          name: '9am',
+          uv: 10
+        },
+        {
+          name: '10am',
+          uv: 15
+        },
+        {
+          name: '11am',
+          uv: 18
+        },
+        {
+          name: '12pm',
+          uv: 6
+        },
+        {
+          name: '13pm',
+          uv: 5
+        },
+        {
+          name: '14pm',
+          uv: 10
+        },
+        {
+          name: '15pm',
+          uv: interval ? 21 : 19
+        },
+        {
+          name: '16pm',
+          uv: 22
+        },
+        {
+          name: '17pm',
+          uv: 24
+        },
+        {
+          name: '18pm',
+          uv: 16
+        }
+      ];
+
+      const pieData = [
+        {
+          label: 'Air Conditioner',
+          value: 200,
+          color: '#000'
+        },
+        {
+          label: 'Phone',
+          value: 600,
+          color: '#8f8f8f'
+        },
+        {
+          label: 'Light',
+          value: 100,
+          color: '#CC0000'
+        }
+      ];
 
       return (
         <div>
@@ -236,94 +241,98 @@ export default compose(
     props: (props) => {
       return {
         ...props,
-        subscribeToLineChartChange: () => {
+        // subscribeToLineChartChange: () => {
+        //   return props.RoomData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_ROOM_DATA_LINE,
+        //     name: "subscribeLineChartChange",
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       console.log('--subscribeToLineChartChange--')
+        //       console.log(subscriptionData)
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
+
+        //       const newDocumentState =
+        //         subscriptionData.data.lineDataSetUpdated;
+
+        //       let previousValue = prev.getLineDataSet.slice(0);
+
+        //       previousValue[previousValue.length - 1] = newDocumentState;
+
+        //       return Object.assign({}, prev, {
+        //         getLineDataSet: previousValue
+        //       });
+        //     }
+        //   });
+        // },
+        // subscribeToBarChartChange: () => {
+        //   return props.RoomData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_ROOM_DATA_BAR,
+        //     name: "subscribeBarChartChange",
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
+
+        //       const newDocumentState =
+        //         subscriptionData.data.barDataSetUpdated;
+
+        //       let previousValue = prev.getBarDataSet.slice(0);
+
+        //       previousValue[previousValue.length - 1] = newDocumentState;
+
+        //       return Object.assign({}, prev, {
+        //         getBarDataSet: previousValue
+        //       });
+        //     }
+        //   });
+        // },
+        subscribeToActivityChange: () => {
           return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA_LINE,
-            name: "subscribeLineChartChange",
+            document: SUBSCRIBE_TO_ROOM_DATA_ACTIVITY,
+            name: "subscribeActivityChange",
             updateQuery: (prev, { subscriptionData }) => {
-              console.log('--subscribeToLineChartChange--')
+              console.log('--subscribeToActivityChange--');
               console.log(subscriptionData)
               if (!subscriptionData.data) {
                 return prev;
               }
 
               const newDocumentState =
-                subscriptionData.data.lineDataSetUpdated;
-
-              let previousValue = prev.getLineDataSet.slice(0);
-
-              previousValue[previousValue.length - 1] = newDocumentState;
-
-              return Object.assign({}, prev, {
-                getLineDataSet: previousValue
-              });
-            }
-          });
-        },
-        subscribeToBarChartChange: () => {
-          return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA_BAR,
-            name: "subscribeBarChartChange",
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
-
-              const newDocumentState =
-                subscriptionData.data.barDataSetUpdated;
-
-              let previousValue = prev.getBarDataSet.slice(0);
-
-              previousValue[previousValue.length - 1] = newDocumentState;
-
-              return Object.assign({}, prev, {
-                getBarDataSet: previousValue
-              });
-            }
-          });
-        },
-        subscribeToActivityChange: () => {
-          return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA_ACTIVITY,
-            name: "subscribeActivityChange",
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
-
-              const newDocumentState =
-                subscriptionData.data.activityDataSetUpdated;
+                subscriptionData.data.activityDataSetUpdatedRoom;
               let previousValue = prev.getActivityDataSet.slice(0);
 
               previousValue.push(newDocumentState);
 
+              console.log('--previousValue--')
+              console.log(previousValue)
               return Object.assign({}, prev, {
                 getActivityDataSet: previousValue
               });
             }
           });
         },
-        subscribeToPieChartChange: () => {
-          return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA_PIE,
-            name: "subscribePieChartChange",
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
+        // subscribeToPieChartChange: () => {
+        //   return props.RoomData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_ROOM_DATA_PIE,
+        //     name: "subscribePieChartChange",
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
 
-              const newDocumentState =
-                subscriptionData.data.pieDataSetUpdated;
-              let previousValue = prev.getPieDataSet.slice(0);
+        //       const newDocumentState =
+        //         subscriptionData.data.pieDataSetUpdated;
+        //       let previousValue = prev.getPieDataSet.slice(0);
 
-              previousValue[previousValue.length - 1] = newDocumentState;
+        //       previousValue[previousValue.length - 1] = newDocumentState;
 
-              return Object.assign({}, prev, {
-                getPieDataSet: previousValue
-              });
-            }
-          });
-        },
+        //       return Object.assign({}, prev, {
+        //         getPieDataSet: previousValue
+        //       });
+        //     }
+        //   });
+        // },
       };
     }
   })

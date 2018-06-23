@@ -42,8 +42,8 @@ const RecentlyProducts = (props) => {
     <Paper>
       <List>
         <Subheader style={styles.subheader}>Recent Activities</Subheader>
-        {props.data.map(item =>
-          <div key={item.title}>
+        {props.data.map((item, index) =>
+          <div key={`${item.title}-${index}`}>
             <ListItem
               leftAvatar={<Avatar icon={<Wallpaper />} />}
               primaryText={item.title}
