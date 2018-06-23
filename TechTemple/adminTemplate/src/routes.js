@@ -7,9 +7,12 @@ import FormPage from './containers/FormPage';
 import TablePage from './containers/TablePage';
 import Dashboard from './containers/DashboardPage';
 import RoomDashboard from './containers/RoomDashboardPage';
+import OverallDashboard from './containers/OverallDashboard';
 
 class AppIndex extends Component {
   render() {
+    console.log('----')
+    console.log(OverallDashboard)
     return (
       <div style={{flex: 1}}>
         <Router history={browserHistory}>
@@ -19,6 +22,7 @@ class AppIndex extends Component {
               <IndexRoute component={Dashboard} />
               <Route path="dashboard" component={Dashboard} />
               <Route path="roomDashboard" component={RoomDashboard}/>
+              <Route path="overallDashboard" component={OverallDashboard}/>
               <Route path="form" component={FormPage} />
               <Route path="table" component={TablePage} />
               <Route path="*" component={NotFoundPage} />

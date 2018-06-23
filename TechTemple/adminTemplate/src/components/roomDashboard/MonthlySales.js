@@ -26,11 +26,11 @@ const MonthlySales = (props) => {
 
   return (
     <Paper style={styles.paper}>
-      <div style={{...GlobalStyles.title, ...styles.header}}>Monthly Sales</div>
+      <div style={{...GlobalStyles.title, ...styles.header}}>Peak Hours</div>
       <div style={styles.div}>
         <ResponsiveContainer>
           <BarChart data={props.data} >
-            <Bar dataKey="uv" fill={pink500}/>
+            <Bar dataKey="uv" fill={"#8f8f8f"}/>
             <XAxis dataKey="name" stroke="none" tick={{fill: white}}/>
             <Tooltip />
             <YAxis  tick={{fill: white}}/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Print from 'material-ui/svg-icons/action/print';
 import Work from 'material-ui/svg-icons/action/group-work';
+import Corner from 'material-ui/svg-icons/action/rounded-corner';
 import GridOn from 'material-ui/svg-icons/image/grid-on';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import Web from 'material-ui/svg-icons/av/web';
@@ -13,6 +14,7 @@ const data = {
   menus: [
     { text: 'Printer DashBoard', icon: <Print/>, link: '/dashboard' },
     { text: 'Room DashBoard', icon: <Work/>, link: '/roomDashboard' },
+    { text: 'Overall DashBoard', icon: <Corner/>, link: '/overallDashboard' },
     // { text: 'Form Page', icon: <Web/>, link: '/form' },
     // { text: 'Table Page', icon: <GridOn/>, link: '/table' },
     // { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }

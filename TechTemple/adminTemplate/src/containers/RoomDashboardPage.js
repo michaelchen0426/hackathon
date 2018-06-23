@@ -51,6 +51,102 @@ class DashboardPage extends Component {
     console.log('--render--');
     console.log(this.props);
 
+    const usageData = [
+      {
+        date: '6-12',
+        v: 5
+      },
+      {
+        date: '6-13',
+        v: 7
+      },
+      {
+        date: '6-14',
+        v: 4
+      },
+      {
+        date: '6-15',
+        v: 9
+      },
+      {
+        date: '6-16',
+        v: 4
+      },
+      {
+        date: '6-17',
+        v: 5
+      },
+      {
+        date: '6-18',
+        v: 5
+      },
+      {
+        date: '6-19',
+        v: 8
+      },
+    ];
+
+    const barData = [
+      {
+        name: '9am',
+        uv: 10
+      },
+      {
+        name: '10am',
+        uv: 15
+      },
+      {
+        name: '11am',
+        uv: 18
+      },
+      {
+        name: '12pm',
+        uv: 6
+      },
+      {
+        name: '13pm',
+        uv: 5
+      },
+      {
+        name: '14pm',
+        uv: 10
+      },
+      {
+        name: '15pm',
+        uv: 19
+      },
+      {
+        name: '16pm',
+        uv: 22
+      },
+      {
+        name: '17pm',
+        uv: 24
+      },
+      {
+        name: '18pm',
+        uv: 16
+      }
+    ];
+
+    const pieData = [
+      {
+        label: 'Air Conditioner',
+        value: 200,
+        color: '#000'
+      },
+      {
+        label: 'Phone',
+        value: 600,
+        color: '#8f8f8f'
+      },
+      {
+        label: 'Light',
+        value: 100,
+        color: '#CC0000'
+      }
+    ];
+
     if (networkStatus === 7) {
       let existingActivityData = getActivityDataSet.slice(0);
 
@@ -63,7 +159,7 @@ class DashboardPage extends Component {
 
           <div className="row">
 
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
+            {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
               <InfoBox Icon={ShoppingCart}
                 color={pink600}
                 title="Total Profit"
@@ -78,7 +174,7 @@ class DashboardPage extends Component {
                 title="Likes"
                 value="4231"
               />
-            </div>
+            </div> */}
 
             {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
           <InfoBox Icon={Assessment}
@@ -99,11 +195,11 @@ class DashboardPage extends Component {
 
           <div className="row">
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
-              <NewOrders data={getLineDataSet} />
+              <NewOrders data={usageData} />
             </div>
 
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
-              <MonthlySales data={getBarDataSet} />
+              <MonthlySales data={barData} />
             </div>
           </div>
 
@@ -113,7 +209,7 @@ class DashboardPage extends Component {
             </div>
 
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-              <BrowserUsage data={getPieDataSet} />
+              <BrowserUsage data={pieData} />
             </div>
           </div>
         </div>

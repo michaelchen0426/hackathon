@@ -23,6 +23,11 @@ export const GET_PRINTER_DATA = gql`
       value,
       color
     }
+
+    getPrintCardData {
+      consumed,
+      left
+    }
   }
 `;
 
@@ -68,6 +73,15 @@ subscription {
     color
   }
 }
+`;
+
+export const SUBSCRIBE_TO_PRINTER_DATA_PRINT_CARD = gql`
+  subscription {
+    printCardDataUpdated {
+      consumed,
+      left
+    }
+  }
 `;
 
 /*
