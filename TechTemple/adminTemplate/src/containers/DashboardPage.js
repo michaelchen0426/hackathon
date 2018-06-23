@@ -16,7 +16,10 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import {
   GET_PRINTER_DATA,
-  SUBSCRIBE_TO_PRINTER_DATA
+  SUBSCRIBE_TO_PRINTER_DATA_LINE,
+  SUBSCRIBE_TO_PRINTER_DATA_BAR,
+  SUBSCRIBE_TO_PRINTER_DATA_PIE,
+  SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY
 } from '../apollo/queries';
 
 
@@ -28,6 +31,9 @@ class DashboardPage extends Component {
 
   componentDidMount() {
     this.props.subscribeToLineChartChange();
+    this.props.subscribeToBarChartChange();
+    this.props.subscribeToActivityChange();
+    this.props.subscribeToPieChartChange();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,6 +58,9 @@ class DashboardPage extends Component {
     console.log(this.props);
 
     if (networkStatus === 7) {
+      let existingActivityData = getActivityDataSet.slice(0);
+
+      existingActivityData.reverse();
 
       return (
         <div>
@@ -105,7 +114,7 @@ class DashboardPage extends Component {
 
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-              <RecentlyProducts data={getActivityDataSet} />
+              <RecentlyProducts data={existingActivityData} />
             </div>
 
             {/* <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
@@ -224,8 +233,11 @@ export default compose(
         ...props,
         subscribeToLineChartChange: () => {
           return props.PrinterData.subscribeToMore({
-            document: SUBSCRIBE_TO_PRINTER_DATA,
+            document: SUBSCRIBE_TO_PRINTER_DATA_LINE,
+            name: "subscribeLineChartChange",
             updateQuery: (prev, { subscriptionData }) => {
+              console.log('--subscribeToLineChartChange--')
+              console.log(subscriptionData)
               if (!subscriptionData.data) {
                 return prev;
               }
@@ -245,7 +257,8 @@ export default compose(
         },
         subscribeToBarChartChange: () => {
           return props.PrinterData.subscribeToMore({
-            document: SUBSCRIBE_TO_PRINTER_DATA,
+            document: SUBSCRIBE_TO_PRINTER_DATA_BAR,
+            name: "subscribeBarChartChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -254,15 +267,20 @@ export default compose(
               const newDocumentState =
                 subscriptionData.data.barDataSetUpdated;
 
+              let previousValue = prev.getBarDataSet.slice(0);
+
+              previousValue[previousValue.length - 1] = newDocumentState;
+
               return Object.assign({}, prev, {
-                getBarDataSet: { ...newDocumentState }
+                getBarDataSet: previousValue
               });
             }
           });
         },
         subscribeToActivityChange: () => {
           return props.PrinterData.subscribeToMore({
-            document: SUBSCRIBE_TO_PRINTER_DATA,
+            document: SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY,
+            name: "subscribeActivityChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -270,16 +288,20 @@ export default compose(
 
               const newDocumentState =
                 subscriptionData.data.activityDataSetUpdated;
+              let previousValue = prev.getActivityDataSet.slice(0);
+
+              previousValue.push(newDocumentState);
 
               return Object.assign({}, prev, {
-                getActivityDataSet: { ...newDocumentState }
+                getActivityDataSet: previousValue
               });
             }
           });
         },
         subscribeToPieChartChange: () => {
           return props.PrinterData.subscribeToMore({
-            document: SUBSCRIBE_TO_PRINTER_DATA,
+            document: SUBSCRIBE_TO_PRINTER_DATA_PIE,
+            name: "subscribePieChartChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -287,9 +309,12 @@ export default compose(
 
               const newDocumentState =
                 subscriptionData.data.pieDataSetUpdated;
+              let previousValue = prev.getPieDataSet.slice(0);
+
+              previousValue[previousValue.length - 1] = newDocumentState;
 
               return Object.assign({}, prev, {
-                getPieDataSet: { ...newDocumentState }
+                getPieDataSet: previousValue
               });
             }
           });

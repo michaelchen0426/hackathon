@@ -16,7 +16,6 @@ export const GET_PRINTER_DATA = gql`
       id
       title
       text
-      type
     }
 
     getPieDataSet(name: "printer") {
@@ -28,21 +27,47 @@ export const GET_PRINTER_DATA = gql`
 `;
 
 /*
-
-
-
         getCountDataSet(name: "printer") {
 
         }
 */
 
-export const SUBSCRIBE_TO_PRINTER_DATA = gql`
+export const SUBSCRIBE_TO_PRINTER_DATA_LINE = gql`
     subscription {
         lineDataSetUpdated {
           v,
           date
         }
     }
+`;
+
+export const SUBSCRIBE_TO_PRINTER_DATA_BAR = gql`
+  subscription {
+    barDataSetUpdated {
+      name,
+      uv
+    }
+  }
+`;
+
+export const SUBSCRIBE_TO_PRINTER_DATA_ACTIVITY = gql`
+subscription {
+  activityDataSetUpdated {
+    id
+    title
+    text
+  }
+}
+`;
+
+export const SUBSCRIBE_TO_PRINTER_DATA_PIE = gql`
+subscription {
+  pieDataSetUpdated {
+    label,
+    value,
+    color
+  }
+}
 `;
 
 /*
@@ -64,29 +89,69 @@ export const SUBSCRIBE_TO_PRINTER_DATA = gql`
         }
 */
 
-// export const GET_ROOM_DATA = gql`
-//     {
-//       getLineDataSet(name: "room") {
-//         pv
-//       }
+export const GET_ROOM_DATA = gql`
+    {
+      getLineDataSet(name: "room") {
+        date
+        v
+      }
 
-//       getBarDataSet(name: "room") {
+      getBarDataSet(name: "room") {
+        name
+        uv
+      }
 
-//       }
+      getActivityDataSet(name: "room") {
+        id
+        title
+        text
+      }
 
-//       getActivityDataSet(name: "room") {
+      getPieDataSet(name: "room") {
+        label,
+        value,
+        color
+      }
+    }
+`;
 
-//       }
+export const SUBSCRIBE_TO_ROOM_DATA_LINE = gql`
+    subscription {
+        lineDataSetUpdatedRoom {
+          v,
+          date
+        }
+    }
+`;
 
-//       getPieDataSet(name: "room") {
+export const SUBSCRIBE_TO_ROOM_DATA_BAR = gql`
+  subscription {
+    barDataSetUpdatedoom {
+      name,
+      uv
+    }
+  }
+`;
 
-//       }
+export const SUBSCRIBE_TO_ROOM_DATA_ACTIVITY = gql`
+subscription {
+  activityDataSetUpdatedoom {
+    id
+    title
+    text
+  }
+}
+`;
 
-//       getCountDataSet(name: "room") {
-
-//       }
-//     }
-// `;
+export const SUBSCRIBE_TO_ROOM_DATA_PIE = gql`
+subscription {
+  pieDataSetUpdatedoom {
+    label,
+    value,
+    color
+  }
+}
+`;
 
 // export const SUBSCRIBE_TO_ROOM_DATA = gql`
 //     subscription {

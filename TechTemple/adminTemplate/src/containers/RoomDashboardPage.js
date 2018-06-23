@@ -16,7 +16,10 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 import {
   GET_ROOM_DATA,
-  SUBSCRIBE_TO_ROOM_DATA
+  SUBSCRIBE_TO_ROOM_DATA_LINE,
+  SUBSCRIBE_TO_ROOM_DATA_BAR,
+  SUBSCRIBE_TO_ROOM_DATA_ACTIVITY,
+  SUBSCRIBE_TO_ROOM_DATA_PIE
 } from '../apollo/queries';
 
 class DashboardPage extends Component {
@@ -27,6 +30,9 @@ class DashboardPage extends Component {
 
   componentDidMount() {
     this.props.subscribeToLineChartChange();
+    this.props.subscribeToBarChartChange();
+    this.props.subscribeToActivityChange();
+    this.props.subscribeToPieChartChange();
   }
 
   render() {
@@ -38,14 +44,18 @@ class DashboardPage extends Component {
       networkStatus,
       getLineDataSet,
       getBarDataSet,
-      // getActivityDataSet,
-      // getPieDataSet,
+      getActivityDataSet,
+      getPieDataSet,
       // getCountDataSet
     } = RoomData;
     console.log('--render--');
     console.log(this.props);
 
     if (networkStatus === 7) {
+      let existingActivityData = getActivityDataSet.slice(0);
+
+      existingActivityData.reverse();
+
       return (
         <div>
           <h3 style={globalStyles.navigation}>Rooms Dashboard</h3>
@@ -98,11 +108,11 @@ class DashboardPage extends Component {
 
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-              <RecentlyProducts data={Data.roomDashBoardPage.recentProducts} />
+              <RecentlyProducts data={existingActivityData} />
             </div>
 
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-              <BrowserUsage data={Data.roomDashBoardPage.browserUsage} />
+              <BrowserUsage data={getPieDataSet} />
             </div>
           </div>
         </div>
@@ -131,8 +141,11 @@ export default compose(
         ...props,
         subscribeToLineChartChange: () => {
           return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA,
+            document: SUBSCRIBE_TO_ROOM_DATA_LINE,
+            name: "subscribeLineChartChange",
             updateQuery: (prev, { subscriptionData }) => {
+              console.log('--subscribeToLineChartChange--')
+              console.log(subscriptionData)
               if (!subscriptionData.data) {
                 return prev;
               }
@@ -140,15 +153,20 @@ export default compose(
               const newDocumentState =
                 subscriptionData.data.lineDataSetUpdated;
 
+              let previousValue = prev.getLineDataSet.slice(0);
+
+              previousValue[previousValue.length - 1] = newDocumentState;
+
               return Object.assign({}, prev, {
-                getLineDataSet: { ...newDocumentState }
+                getLineDataSet: previousValue
               });
             }
           });
         },
         subscribeToBarChartChange: () => {
           return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA,
+            document: SUBSCRIBE_TO_ROOM_DATA_BAR,
+            name: "subscribeBarChartChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -157,15 +175,20 @@ export default compose(
               const newDocumentState =
                 subscriptionData.data.barDataSetUpdated;
 
+              let previousValue = prev.getBarDataSet.slice(0);
+
+              previousValue[previousValue.length - 1] = newDocumentState;
+
               return Object.assign({}, prev, {
-                getBarDataSet: { ...newDocumentState }
+                getBarDataSet: previousValue
               });
             }
           });
         },
         subscribeToActivityChange: () => {
           return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA,
+            document: SUBSCRIBE_TO_ROOM_DATA_ACTIVITY,
+            name: "subscribeActivityChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -173,16 +196,20 @@ export default compose(
 
               const newDocumentState =
                 subscriptionData.data.activityDataSetUpdated;
+              let previousValue = prev.getActivityDataSet.slice(0);
+
+              previousValue.push(newDocumentState);
 
               return Object.assign({}, prev, {
-                getActivityDataSet: { ...newDocumentState }
+                getActivityDataSet: previousValue
               });
             }
           });
         },
         subscribeToPieChartChange: () => {
           return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA,
+            document: SUBSCRIBE_TO_ROOM_DATA_PIE,
+            name: "subscribePieChartChange",
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) {
                 return prev;
@@ -190,30 +217,16 @@ export default compose(
 
               const newDocumentState =
                 subscriptionData.data.pieDataSetUpdated;
+              let previousValue = prev.getPieDataSet.slice(0);
+
+              previousValue[previousValue.length - 1] = newDocumentState;
 
               return Object.assign({}, prev, {
-                getPieDataSet: { ...newDocumentState }
+                getPieDataSet: previousValue
               });
             }
           });
         },
-        subscribeToCountChange: () => {
-          return props.RoomData.subscribeToMore({
-            document: SUBSCRIBE_TO_ROOM_DATA,
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
-
-              const newDocumentState =
-                subscriptionData.data.countDataSetUpdated;
-
-              return Object.assign({}, prev, {
-                getCountDataSet: { ...newDocumentState }
-              });
-            }
-          });
-        }
       };
     }
   })

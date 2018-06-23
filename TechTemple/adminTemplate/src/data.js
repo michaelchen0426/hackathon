@@ -1,5 +1,6 @@
 import React from 'react';
 import Assessment from 'material-ui/svg-icons/action/assessment';
+import Room from 'material-ui/svg-icons/action/room';
 import GridOn from 'material-ui/svg-icons/image/grid-on';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import Web from 'material-ui/svg-icons/av/web';
@@ -11,7 +12,7 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 const data = {
   menus: [
     { text: 'Printer DashBoard', icon: <Assessment/>, link: '/dashboard' },
-    // { text: 'Room DashBoard', icon: <Assessment/>, link: '/roomDashboard' },
+    { text: 'Room DashBoard', icon: <Room/>, link: '/roomDashboard' },
     // { text: 'Form Page', icon: <Web/>, link: '/form' },
     // { text: 'Table Page', icon: <GridOn/>, link: '/table' },
     // { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }
