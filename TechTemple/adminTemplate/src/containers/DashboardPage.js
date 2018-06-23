@@ -25,6 +25,11 @@ class DashboardPage extends Component {
     super();
     console.log('--constructor-')
   }
+
+  componentDidMount() {
+    this.props.subscribeToLineChartChange();
+  }
+
   componentWillReceiveProps(nextProps) {
     console.log('--componentWillReceiveProps---')
     console.log(nextProps)
@@ -197,7 +202,8 @@ class DashboardPage extends Component {
 }
 
 DashboardPage.propTypes = {
-  PrinterData: PropTypes.object.isRequired
+  PrinterData: PropTypes.object.isRequired,
+  subscribeToLineChartChange: PropTypes.func
 };
 
 
@@ -210,62 +216,66 @@ export default compose(
         notifyOnNetworkStatusChange: true
       };
     },
-    // props: (props) => {
-    //   return {
-    //     ...props,
-    //     subscribeToLineChartChange: () => {
-    //       return props.PrinterData.subscribeToMore({
-    //         document: SUBSCRIBE_TO_PRINTER_DATA,
-    //         updateQuery: (prev, { subscriptionData }) => {
-    //           if (!subscriptionData.data) {
-    //             return prev;
-    //           }
+    props: (props) => {
+      return {
+        ...props,
+        subscribeToLineChartChange: () => {
+          return props.PrinterData.subscribeToMore({
+            document: SUBSCRIBE_TO_PRINTER_DATA,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) {
+                return prev;
+              }
 
-    //           const newDocumentState =
-    //             subscriptionData.data.lineDataSetUpdated;
+              const newDocumentState =
+                subscriptionData.data.lineDataSetUpdated;
 
-    //           return Object.assign({}, prev, {
-    //             getLineDataSet: { ...newDocumentState }
-    //           });
-    //         }
-    //       });
-    //     },
-    //     subscribeToBarChartChange: () => {
-    //       return props.PrinterData.subscribeToMore({
-    //         document: SUBSCRIBE_TO_PRINTER_DATA,
-    //         updateQuery: (prev, { subscriptionData }) => {
-    //           if (!subscriptionData.data) {
-    //             return prev;
-    //           }
+              let previousValue = prev.getLineDataSet.slice(0);
 
-    //           const newDocumentState =
-    //             subscriptionData.data.barDataSetUpdated;
+              previousValue[previousValue.length - 1] = newDocumentState;
 
-    //           return Object.assign({}, prev, {
-    //             getBarDataSet: { ...newDocumentState }
-    //           });
-    //         }
-    //       });
-    //     },
-    //     subscribeToActivityChange: () => {
-    //       return props.PrinterData.subscribeToMore({
-    //         document: SUBSCRIBE_TO_PRINTER_DATA,
-    //         updateQuery: (prev, { subscriptionData }) => {
-    //           if (!subscriptionData.data) {
-    //             return prev;
-    //           }
+              return Object.assign({}, prev, {
+                getLineDataSet: previousValue
+              });
+            }
+          });
+        },
+        // subscribeToBarChartChange: () => {
+        //   return props.PrinterData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_PRINTER_DATA,
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
 
-    //           const newDocumentState =
-    //             subscriptionData.data.activityDataSetUpdated;
+        //       const newDocumentState =
+        //         subscriptionData.data.barDataSetUpdated;
 
-    //           return Object.assign({}, prev, {
-    //             getActivityDataSet: { ...newDocumentState }
-    //           });
-    //         }
-    //       });
-    //     },
-    //   };
-    // }
+        //       return Object.assign({}, prev, {
+        //         getBarDataSet: { ...newDocumentState }
+        //       });
+        //     }
+        //   });
+        // },
+        // subscribeToActivityChange: () => {
+        //   return props.PrinterData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_PRINTER_DATA,
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
+
+        //       const newDocumentState =
+        //         subscriptionData.data.activityDataSetUpdated;
+
+        //       return Object.assign({}, prev, {
+        //         getActivityDataSet: { ...newDocumentState }
+        //       });
+        //     }
+        //   });
+        // },
+      };
+    }
   })
 )(DashboardPage);
 

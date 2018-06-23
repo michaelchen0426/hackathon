@@ -34,9 +34,14 @@ export const GET_PRINTER_DATA = gql`
 
 export const SUBSCRIBE_TO_PRINTER_DATA = gql`
     subscription {
-        lineDataSetUpdated(name: "printer") {
-          pv
+        lineDataSetUpdated {
+          v,
+          date
         }
+    }
+`;
+
+/*
 
         barDataSetUpdated(name: "printer") {
           pv
@@ -45,10 +50,7 @@ export const SUBSCRIBE_TO_PRINTER_DATA = gql`
         activityDataSetUpdated(name: "printer") {
           pv
         }
-    }
-`;
 
-/*
         pieDataSetUpdated(name: "printer") {
           pv
         }
