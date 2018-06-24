@@ -34,7 +34,7 @@ class DashboardPage extends Component {
     this.props.subscribeToLineChartChange();
     this.props.subscribeToBarChartChange();
     this.props.subscribeToActivityChange();
-    this.props.subscribeToPieChartChange();
+    // this.props.subscribeToPieChartChange();
     this.props.subscribeToPrintCardChange();
   }
 
@@ -53,7 +53,7 @@ class DashboardPage extends Component {
       getLineDataSet,
       getBarDataSet,
       getActivityDataSet,
-      getPieDataSet,
+      // getPieDataSet,
       getPrintCardData
       // getCountDataSet
     } = PrinterData;
@@ -309,27 +309,27 @@ export default compose(
             }
           });
         },
-        subscribeToPieChartChange: () => {
-          return props.PrinterData.subscribeToMore({
-            document: SUBSCRIBE_TO_PRINTER_DATA_PIE,
-            name: "subscribePieChartChange",
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) {
-                return prev;
-              }
+        // subscribeToPieChartChange: () => {
+        //   return props.PrinterData.subscribeToMore({
+        //     document: SUBSCRIBE_TO_PRINTER_DATA_PIE,
+        //     name: "subscribePieChartChange",
+        //     updateQuery: (prev, { subscriptionData }) => {
+        //       if (!subscriptionData.data) {
+        //         return prev;
+        //       }
 
-              const newDocumentState =
-                subscriptionData.data.pieDataSetUpdated;
-              let previousValue = prev.getPieDataSet.slice(0);
+        //       const newDocumentState =
+        //         subscriptionData.data.pieDataSetUpdated;
+        //       let previousValue = prev.getPieDataSet.slice(0);
 
-              previousValue[previousValue.length - 1] = newDocumentState;
+        //       previousValue[previousValue.length - 1] = newDocumentState;
 
-              return Object.assign({}, prev, {
-                getPieDataSet: previousValue
-              });
-            }
-          });
-        },
+        //       return Object.assign({}, prev, {
+        //         getPieDataSet: previousValue
+        //       });
+        //     }
+        //   });
+        // },
         subscribeToPrintCardChange: () => {
           return props.PrinterData.subscribeToMore({
             document: SUBSCRIBE_TO_PRINTER_DATA_PRINT_CARD,
