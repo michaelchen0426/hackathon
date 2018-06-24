@@ -25,7 +25,7 @@ const BrowserUsage = (props) => {
 
   return (
     <Paper style={styles.paper}>
-      <span style={GlobalStyles.title}>Rooms Usage</span>
+      <span style={GlobalStyles.title}>Rooms Energe Usage</span>
 
       <div style={GlobalStyles.clear} />
 
