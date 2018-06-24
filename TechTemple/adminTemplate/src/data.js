@@ -13,8 +13,8 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 const data = {
   menus: [
     { text: 'Printer DashBoard', icon: <Print/>, link: '/dashboard' },
-    { text: 'Room DashBoard', icon: <Work/>, link: '/roomDashboard' },
-    { text: 'Overall DashBoard', icon: <Dashboard/>, link: '/overallDashboard' },
+    { text: 'Room Data', icon: <Work/>, link: '/roomDashboard' },
+    { text: 'Room DashBoard', icon: <Dashboard/>, link: '/overallDashboard' },
     // { text: 'Form Page', icon: <Web/>, link: '/form' },
     // { text: 'Table Page', icon: <GridOn/>, link: '/table' },
     // { text: 'Login Page', icon: <PermIdentity/>, link: '/login' }

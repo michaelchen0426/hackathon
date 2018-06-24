@@ -27,6 +27,12 @@ class App extends React.Component {
     });
   }
 
+  closeMenu() {
+    this.setState({
+      navDrawerOpen: !this.state.navDrawerOpen
+    });
+  }
+
   render() {
     let { navDrawerOpen } = this.state;
     const paddingLeftDrawerOpen = 236;
@@ -51,6 +57,7 @@ class App extends React.Component {
             navDrawerOpen={navDrawerOpen}
             menus={Data.menus}
             username="JLL"
+            closeMenu={this.closeMenu}
           />
 
           <div style={styles.container}>

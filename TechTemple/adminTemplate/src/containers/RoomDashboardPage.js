@@ -64,78 +64,78 @@ class DashboardPage extends Component {
 
       const usageData = [
         {
-          date: '6-12',
-          v: 5
-        },
-        {
-          date: '6-13',
-          v: 7
-        },
-        {
-          date: '6-14',
-          v: 4
-        },
-        {
-          date: '6-15',
-          v: 9
-        },
-        {
-          date: '6-16',
-          v: 4
-        },
-        {
           date: '6-17',
           v: 5
         },
         {
           date: '6-18',
-          v: 5
+          v: 7
         },
         {
           date: '6-19',
-          v: interval ? 10 : 8
+          v: 4
+        },
+        {
+          date: '6-20',
+          v: 9
+        },
+        {
+          date: '6-21',
+          v: 4
+        },
+        {
+          date: '6-22',
+          v: 5
+        },
+        {
+          date: '6-23',
+          v: 5
+        },
+        {
+          date: '6-24',
+          v: interval ? 11 : 8
         },
       ];
 
       const barData = [
         {
           name: '9am',
-          uv: 10
+          uv: interval ? 11 : 10
         },
         {
           name: '10am',
-          uv: 15
+          uv: interval ? 16 : 15
         },
         {
           name: '11am',
-          uv: 18
+          uv: interval ? 19 : 18
         },
         {
           name: '12pm',
-          uv: 6
+          uv: interval ? 7 : 6
         },
         {
-          name: '13pm',
+          name: '1pm',
           uv: 5
         },
         {
-          name: '14pm',
+          name: '2pm',
           uv: 10
         },
         {
-          name: '15pm',
-          uv: interval ? 21 : 19
+          name: '3pm',
+          uv: 19
         },
         {
-          name: '16pm',
+          name: '4pm',
           uv: 22
         },
         {
-          name: '17pm',
+          name: '5pm',
           uv: 24
         },
         {
-          name: '18pm',
+          name: '6pm',
           uv: 16
         }
       ];
