@@ -15,7 +15,7 @@ const BrowserUsage = (props) => {
       padding: 10
     },
     legend: {
-      paddingTop: 20,
+      paddingTop: 20
     },
     pieChartDiv: {
       height: 290,
