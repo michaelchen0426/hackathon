@@ -37,7 +37,7 @@ class Header extends React.Component {
               // title={
               //   <SearchBox />
               // }
-              title={"App Name"}
+              title={"Space Control"}
               iconElementLeft={
                   <IconButton style={style.menuButton} onClick={handleChangeRequestNavDrawer}>
                     <Menu color={white} />
