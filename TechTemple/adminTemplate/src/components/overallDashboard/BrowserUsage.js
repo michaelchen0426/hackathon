@@ -60,7 +60,6 @@ const BrowserUsage = (props) => {
                     key={item.label}
                     leftAvatar={
                       <Avatar
-                        icon={<ExpandLess/>}
                         backgroundColor={item.color} />
                     }
                   >

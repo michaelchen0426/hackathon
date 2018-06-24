@@ -57,9 +57,7 @@ const BrowserUsage = (props) => {
                   <ListItem
                     key={item.label}
                     leftAvatar={
-                      <Avatar icon={<ExpandLess/>}
-                        backgroundColor={item.color}
-                      />
+                      <Avatar backgroundColor={item.color}/>
                     }>
                     {item.label}
                   </ListItem>
