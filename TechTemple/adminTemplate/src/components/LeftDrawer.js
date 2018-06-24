@@ -53,7 +53,7 @@ const LeftDrawer = (props) => {
       docked={true}
       open={navDrawerOpen}>
         <div style={styles.logo}>
-          List
+          Menu
         </div>
         <div style={styles.avatar.div}>
           <Avatar src={jlllogo}
