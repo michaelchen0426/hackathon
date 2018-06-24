@@ -5,15 +5,17 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
-const httpURI = 'https://radiant-river-38086.herokuapp.com/graphql';
-const wsURI = 'wss://radiant-river-38086.herokuapp.com/subscriptions';
+const httpURI = 'https://subs-demo.azurewebsites.net/graphql';
+const wsURI = 'wss://subs-demo.azurewebsites.net/subscriptions';
 
 const httpLink = new HttpLink({ uri: httpURI });
 
 const wsLink = new WebSocketLink({
     uri: wsURI,
     options: {
-        reconnect: true
+        reconnect: true,
+        reconnectionAttempts: 1000000,
+        wsTimeout: 9999999
     }
 });
 

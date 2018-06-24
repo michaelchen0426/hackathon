@@ -76,7 +76,7 @@ class DashboardPage extends Component {
               <InfoBox Icon={ShoppingCart}
                 color={pink600}
                 title="Paper Consumed"
-                value={getPrintCardData.consumed}
+                value={`${getPrintCardData.consumed}`}
               />
             </div>
 
@@ -85,7 +85,7 @@ class DashboardPage extends Component {
               <InfoBox Icon={ThumbUp}
                 color={cyan600}
                 title="Paper Left"
-                value={getPrintCardData.left}
+                value={`${getPrintCardData.left}`}
               />
             </div>
 
@@ -233,6 +233,8 @@ export default compose(
       };
     },
     props: (props) => {
+      console.log('---**---')
+      console.log(props)
       return {
         ...props,
         subscribeToLineChartChange: () => {
